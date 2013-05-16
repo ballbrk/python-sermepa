@@ -6,7 +6,7 @@
 from distutils.core import setup
 
 PACKAGES = ['sermepa', ]
-PACKAGES_DATA = {}
+PACKAGES_DATA = {'sermepa.tests': []}
 
 setup(name='sermepa',
       description = """A client to submit payment orders to the Sermepa
@@ -22,4 +22,5 @@ setup(name='sermepa',
       packages=PACKAGES,
       package_data=PACKAGES_DATA,
       scripts=[],
+      test_suite='sermepa.tests',
 )

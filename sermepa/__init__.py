@@ -114,18 +114,3 @@ class Client(object):
             'Ds_Merchant_TransactionDate': self.Ds_Merchant_TransactionDate,
         }
         return data
-
-
-class TestClient(Client):
-    """Test Client
-
-    N. Tarja: 4548812049400004
-    Caduca: 12/12
-    CCV: 123
-    CIP: 123456
-    """
-
-    def __init__(self, business_code, priv_key):
-        super(TestClient, self).__init__(business_code, priv_key,
-              'https://sis-t.sermepa.es:25443/sis/realizarPago')
-
