@@ -47,14 +47,16 @@ LANG_MAP = {
 class Client(object):
     """Client"""
 
-    def __init__(self, business_code, priv_key,
-                 endpoint_url='https://sis.sermepa.es/sis/realizarPago'):
+    def __init__(self, business_code, priv_key, sandbox=False):
         # init params
         for param in DATA:
             setattr(self, param, None)
-        self.endpoint = endpoint_url
-        self.priv_key = priv_key
         self.Ds_Merchant_MerchantCode = business_code
+        self.priv_key = priv_key
+        if sandbox:
+            self.sermepa_url = 'https://sis-t.sermepa.es:25443/sis/realizarPago'
+        else:
+            self.sermepa_url = 'https://sis.sermepa.es/sis/realizarPago'
 
     def get_pay_form_data(self, transaction_params):
         """Pay call"""
@@ -85,6 +87,7 @@ class Client(object):
             hashlib.sha1(signature).hexdigest().upper()
 
         data = {
+            'Ds_Sermepa_Url': self.sermepa_url,
             'Ds_Merchant_Amount': int(self.Ds_Merchant_Amount * 100),
             'Ds_Merchant_Currency': self.Ds_Merchant_Currency or 978, # EUR
             'Ds_Merchant_Order': self.Ds_Merchant_Order[:12],
